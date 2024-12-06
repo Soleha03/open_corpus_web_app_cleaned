@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Open Corpus Web App</title>
+    <style>
+      /* General Body Styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f9;
+        color: #333;
+        text-align: center;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: #4caf50;
+        color: white;
+        padding: 20px 0;
+        font-size: 1.8em;
+      }
+
+      /* Container Styles */
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* Form Container Styling */
+      .upload-container {
+        max-width: 500px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Label Styling */
+      label {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      /* File Input Styling */
+      input[type="file"] {
+        margin: 15px 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* Button Styling */
+      button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        cursor: pointer;
+        border-radius: 4px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      /* Results Section Styling */
+      .results {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Individual Result Styling */
+      .results div {
+        margin-bottom: 20px;
+      }
+
+      .results h3 {
+        font-size: 1.4em;
+        color: #4caf50;
+      }
+
+      .results p {
+        margin: 5px 0;
+        font-size: 1.1em;
+      }
+
+      /* Error Styling */
+      .error {
+        color: red;
+        font-weight: bold;
+        font-size: 1.2em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Upload File untuk Proses</h1>
+
+    <div class="container">
+      <form method="POST" enctype="multipart/form-data">
+        <label for="fileInput">Pilih file untuk di-upload:</label>
+        <input type="file" name="file" id="fileInput" required />
+        <button type="submit">Upload</button>
+      </form>
+
+      {% if results %} {% for item in results %}
+      <div class="results">
+        <div class="result">
+          <h3>{{ item.word }}</h3>
+          <p><strong>Artikel:</strong> {{ item.article }}</p>
+          <p><strong>Kelas Kata:</strong> {{ item.class }}</p>
+          <p><strong>Kata Dasar:</strong> {{ item.root | join(", ") }}</p>
+          <p><strong>Formasi:</strong> {{ item.formation }}</p>
+          <p><strong>Contoh Kalimat:</strong> {{ item.example }}</p>
+        </div>
+      </div>
+      {% endfor %} {% elif error %}
+      <p class="error">{{ error }}</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
